@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, Download, Calendar, Megaphone, Users, Heart, Clock, MapPin, Phone, Mail, ChevronDown, ChevronUp } from 'lucide-react';
-import './Dashboard.css';
+import './dashboard.css';
 
 const Dashboard = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
