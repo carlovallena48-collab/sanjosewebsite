@@ -1,0 +1,1959 @@
+/* Dashboard.css - Combined Church Info Section - RESPONSIVE VERSION */
+
+/* General Setup */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.homepage-container {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  /* ⬅️ NEW/UPDATED FOR FULL SCREEN SLIDER: Idagdag ang padding-top para hindi matakpan ng fixed header ang content. */
+  padding-top: 75px; 
+}
+
+/* Dynamic Background Styles */
+.dynamic-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.background-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  transform: scale(1.05);
+  filter: brightness(0.9);
+}
+
+.background-layer.active {
+  opacity: 0.1;
+  transform: scale(1);
+}
+
+/* HEADER / NAVIGATION BAR */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #15803d;
+  gap: 1rem;
+}
+
+.logo-background {
+  background: linear-gradient(135deg, #e6ede9, #f2f4f3);
+  padding: -2rem;
+  border-radius: 150px;
+  box-shadow: 0 4px 15px rgba(21, 128, 61, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(21, 128, 61, 0.2);
+}
+
+.church-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.church-logo-small {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  background: white;
+  border-radius: 20px;
+}
+
+.logo-fallback, .logo-fallback-small {
+  display: none;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.logo-fallback-small {
+  font-size: 1rem;
+}
+
+/* Navigation */
+.main-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.main-nav li {
+  position: relative;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #4b5563;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.main-nav a:hover, .main-nav a.active {
+  color: #15803d;
+}
+
+.main-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  border-radius: 2px;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  gap: 4px;
+  padding: 0.5rem;
+}
+
+.mobile-menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: #15803d;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Download App Button */
+.download-app-button {
+  background: linear-gradient(135deg, #15803d, #012d11);
+  color: rgb(245, 248, 245);
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px; 
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(21, 128, 61, 0.3);
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.download-app-button:hover {
+  box-shadow: 6px 20px rgba(21, 128, 61, 0.4);
+  color: white;
+  background-color: white;
+}
+
+/* HERO SECTION */
+.hero-section {
+  width: 100%;
+  /* ⬅️ UPDATED FOR FULL SCREEN SLIDER: Ginawang 100vh */
+  height: 100vh; 
+  position: relative;
+  /* ⬅️ UPDATED FOR FULL SCREEN SLIDER: I-negate ang padding-top ng homepage-container */
+  margin-top: -75px; 
+}
+
+.full-slider-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  transform: scale(1.02);
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.slider-image {
+  width: 100%;
+  height: 100%;
+  /* ⬅️ MAHALAGA: object-fit: cover para masigurong punong-puno ang slide area */
+  object-fit: cover; 
+  object-position: center;
+}
+
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(21, 128, 61, 0.3) 0%,
+    rgba(22, 163, 74, 0.2) 100%
+  );
+}
+
+.image-placeholder-fallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Hero Content */
+.hero-content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.hero-content {
+  max-width: 700px;
+  text-align: center;
+  color: white;
+  padding: 0 2rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  margin: 0 0 1.5rem 0;
+  color: #ffffff;
+  font-weight: 800;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  font-weight: 400;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button.primary {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  color: white;
+  border: 1px solid rgba(21, 128, 61, 0.3);
+}
+
+.cta-button.secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Slider Navigation - IMPROVED TRANSPARENT ARROWS */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.3s ease;
+}
+
+.slider-arrow:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-arrow svg {
+  color: white;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+  transition: all 0.3s ease;
+}
+
+.slider-arrow:hover svg {
+  color: #15803d;
+  transform: scale(1.1);
+}
+
+.prev-arrow {
+  left: 2%;
+}
+
+.next-arrow {
+  right: 2%;
+}
+
+.slider-dots {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.8rem;
+  z-index: 3;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: white;
+  border-color: white;
+  transform: scale(1.2);
+  box-shadow: 0 0 15px rgba(21, 128, 61, 0.6);
+}
+
+.dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* SECTION STYLES */
+section {
+  padding: 4rem 5%;
+  position: relative;
+  z-index: 1;
+}
+
+.section-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-icon {
+  color: #15803d;
+  margin-bottom: 1rem;
+}
+
+.section-header h2 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+  color: #15803d;
+}
+
+.section-header p {
+  font-size: 1.1rem;
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* COMBINED CHURCH INFO SECTION */
+.church-info-section {
+  background: #f8fafc;
+}
+
+.church-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.info-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.mission-vision-card {
+  border-top: 4px solid #15803d;
+}
+
+.mass-schedule-card {
+  border-top: 4px solid #dc2626;
+}
+
+.office-hours-card {
+  border-top: 4px solid #f59e0b;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.card-icon {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  padding: 0.8rem;
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mass-schedule-card .card-icon {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.office-hours-card .card-icon {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.card-header h3 {
+  font-size: 1.3rem;
+  color: #1f2937;
+  margin: 0;
+  font-weight: 700;
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mission & Vision Styles */
+.mission-section, .vision-section {
+  margin-bottom: 1.5rem;
+}
+
+.mission-section h4, .vision-section h4 {
+  color: #15803d;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.compact-mission-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.compact-mission-list li {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+
+.mission-number {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  color: white;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 8px rgba(21, 128, 61, 0.3);
+}
+
+.mission-text {
+  color: #4b5563;
+  line-height: 1.5;
+  font-size: 0.85rem;
+  flex: 1;
+}
+
+.compact-vision-text {
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 0.9rem;
+  text-align: justify;
+}
+
+/* Mass Schedule Styles */
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.schedule-item-compact {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 10px;
+  border-left: 3px solid #dc2626;
+  transition: all 0.3s ease;
+}
+
+.schedule-item-compact:hover {
+  background: #fef2f2;
+  transform: translateX(3px);
+}
+
+.schedule-day-compact {
+  color: #1f2937;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.schedule-times-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.time-slot-compact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #dc2626;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.time-slot-compact svg {
+  flex-shrink: 0;
+}
+
+/* Office Hours Styles */
+.office-hours-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.office-hour-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 3px solid #f59e0b;
+  transition: all 0.3s ease;
+}
+
+.office-hour-item:hover {
+  background: #fefce8;
+  transform: translateX(3px);
+}
+
+.office-days-compact {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.85rem;
+}
+
+.office-hours-compact {
+  color: #f59e0b;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.office-note {
+  background: #f0fdf4;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #bbf7d0;
+  margin-top: auto;
+}
+
+.office-note p {
+  color: #15803d;
+  font-size: 0.85rem;
+  margin: 0;
+  text-align: center;
+  font-style: italic;
+}
+
+/* EVENTS SECTION */
+.events-section {
+  background: white;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.event-card {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-top: 3px solid #15803d;
+  transition: all 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.event-card h3 {
+  color: #1f2937;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.event-schedule, .event-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.event-schedule svg {
+  color: #15803d;
+}
+
+/* ANNOUNCEMENTS SECTION */
+.announcement-section {
+  background: #f8fafc;
+}
+
+.announcements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.announcement-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #15803d;
+  transition: all 0.3s ease;
+}
+
+.announcement-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.announcement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.announcement-header h3 {
+  color: #1f2937;
+  font-size: 1.1rem;
+  margin: 0;
+  flex: 1;
+}
+
+.announcement-date {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.announcement-description {
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* PROMOTIONS SECTION */
+.promotion-section {
+  background: white;
+}
+
+.promotions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.promotion-card {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-top: 3px solid #f59e0b;
+  transition: all 0.3s ease;
+}
+
+.promotion-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.promotion-card h3 {
+  color: #1f2937;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.promotion-card p {
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.promotion-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+/* REMINDERS SECTION */
+.reminders-section {
+  background: #f8fafc;
+}
+
+.warning-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.reminders-container {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+}
+
+.reminder-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  background: #fef3c7;
+  padding: 1.2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #f59e0b;
+  transition: all 0.3s ease;
+}
+
+.reminder-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.reminder-number {
+  background: #f59e0b;
+  color: white;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.reminder-text {
+  color: #92400e;
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.thank-you-note {
+  text-align: center;
+  padding: 1.5rem;
+  background: #f0fdf4;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #bbf7d0;
+}
+
+.thank-you-note p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #15803d;
+  margin: 0;
+}
+
+.app-store-button,
+.play-store-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 140px;
+}
+
+.app-store-button:hover,
+.play-store-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.app-store-button img,
+.play-store-button img {
+  width: 120px;
+  height: auto;
+}
+
+.app-features {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  font-size: 0.8rem;
+}
+
+/* CONTACT SECTION */
+.contact-section {
+  background: white;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  align-items: start;
+} 
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.2rem;
+  background: #f8fafc;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.contact-item svg {
+  color: #15803d;
+  margin-top: 0.2rem;
+}
+
+.contact-item h4 {
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.contact-item p {
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.map-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  min-height: 350px;
+  position: relative;
+  border: 1px solid #e5e7eb;
+}
+
+.map-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* FOOTER */
+.main-footer {
+  background: #1f2937;
+  color: white;
+  padding: 3rem 5% 1.5rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+  color: #10b981;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.footer-description {
+  color: #d1d5db;
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+}
+
+.footer-contact div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #d1d5db;
+  font-size: 0.85rem;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.6rem;
+  color: #d1d5db;
+  font-size: 0.9rem;
+}
+
+.footer-section ul li a {
+  color: #d1d5db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.footer-section ul li a:hover {
+  color: #10b981;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.social-links a {
+  color: #d1d5db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.social-links a:hover {
+  color: #10b981;
+}
+
+.social-links img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.footer-bottom {
+  border-top: 1px solid #374151;
+  padding-top: 1.5rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.8rem;
+}
+
+/* =============================== */
+/* ENHANCED RESPONSIVE DESIGN */
+/* =============================== */
+
+/* Large Tablets and Small Laptops */
+@media (max-width: 1200px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .church-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .slider-arrow {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .hero-section {
+    /* ⬅️ UPDATED FOR FULL SCREEN SLIDER: Panatilihin ang 100vh */
+    height: 100vh;
+  }
+}
+
+/* Small Tablets and Large Phones */
+@media (max-width: 768px) {
+  .home-header {
+    padding: 0.8rem 5%;
+    flex-wrap: wrap;
+  }
+  
+  /* ⬅️ NEW/UPDATED FOR FULL SCREEN SLIDER: I-adjust ang padding-top ng container */
+  .homepage-container {
+    padding-top: 60px; 
+  }
+
+  .logo-section {
+    font-size: 1rem;
+  }
+  
+  .main-nav {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+  }
+  
+  .main-nav.nav-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .main-nav ul {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .mobile-menu-toggle {
+    display: flex;
+  }
+  
+  .download-app-button {
+    display: none;
+  }
+  
+  .hero-section {
+    /* ⬅️ UPDATED FOR FULL SCREEN SLIDER: Ginawang 100vh at inayos ang margin-top */
+    height: 100vh;
+    margin-top: -60px; 
+  }
+  
+  .hero-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .description {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
+  .cta-button {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+    padding: 0.7rem 1.2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .section-header p {
+    font-size: 1rem;
+  }
+  
+  section {
+    padding: 3rem 5%;
+  }
+  
+  .events-grid,
+  .announcements-grid,
+  .promotions-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slider-arrow {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .prev-arrow {
+    left: 1%;
+  }
+  
+  .next-arrow {
+    right: 1%;
+  }
+  
+  .info-card {
+    padding: 1.5rem;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+  }
+  
+  .office-hour-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .reminder-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+  }
+  
+  .announcement-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+  .home-header {
+    padding: 0.6rem 4%;
+  }
+
+  /* ⬅️ NEW/UPDATED FOR FULL SCREEN SLIDER: I-adjust ang padding-top ng container */
+  .homepage-container {
+    padding-top: 55px; 
+  }
+  
+  .logo-section {
+    font-size: 0.9rem;
+    gap: 0.5rem;
+  }
+  
+  .church-logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .hero-section {
+    /* ⬅️ UPDATED FOR FULL SCREEN SLIDER: Ginawang 100vh at inayos ang margin-top */
+    height: 100vh;
+    margin-top: -55px; 
+  }
+  
+  .hero-content {
+    padding: 0 1rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .description {
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.4rem;
+  }
+  
+  .section-header p {
+    font-size: 0.9rem;
+  }
+  
+  section {
+    padding: 2rem 4%;
+  }
+  
+  .info-card {
+    padding: 1.2rem;
+    border-radius: 12px;
+  }
+  
+  .church-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .footer-logo {
+    justify-content: center;
+  }
+  
+  .footer-contact div {
+    justify-content: center;
+  }
+  
+  .social-links {
+    align-items: center;
+  }
+  
+  .download-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
+  .app-store-button,
+  .play-store-button {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
+    padding: 0.7rem 1rem;
+  }
+  
+  .app-store-button img,
+  .play-store-button img {
+    width: 100px;
+  }
+  
+  .slider-arrow {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .slider-dots {
+    bottom: 3%;
+  }
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .map-container {
+    min-height: 250px;
+  }
+  
+  .reminder-card {
+    padding: 1rem;
+  }
+  
+  .event-card,
+  .announcement-card,
+  .promotion-card {
+    padding: 1.2rem;
+  }
+  
+  .app-features {
+    gap: 0.5rem;
+  }
+  
+  .feature {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Very Small Phones */
+@media (max-width: 360px) {
+  .home-header {
+    padding: 0.5rem 3%;
+  }
+  
+  .hero-content h1 {
+    font-size: 1.3rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .info-card {
+    padding: 1rem;
+  }
+  
+  .church-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .events-grid,
+  .announcements-grid,
+  .promotions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  section {
+    padding: 1.5rem 3%;
+  }
+  
+  .hero-buttons .cta-button {
+    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
+/* Landscape Orientation for Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  /* ⬅️ UPDATED FOR FULL SCREEN SLIDER: Panatilihin ang 100vh */
+  .hero-section {
+    height: 100vh;
+  }
+  
+  .hero-content {
+    padding-top: 2rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .description {
+    margin-bottom: 1rem;
+  }
+  
+  .slider-dots {
+    bottom: 10%;
+  }
+}
+
+/* High-resolution displays */
+@media (min-resolution: 192dpi) {
+  .church-logo,
+  .church-logo-small {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .home-header,
+  .main-footer,
+  .slider-arrow,
+  .slider-dots,
+  .download-app-button {
+    display: none !important;
+  }
+  
+  .hero-section {
+    height: auto;
+    margin-top: 0;
+  }
+  
+  .slide {
+    position: relative;
+    opacity: 1;
+  }
+  
+  .dynamic-background {
+    display: none;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #166534, #15803d);
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .slide {
+    transition: none;
+  }
+  
+  .background-layer {
+    transition: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light dark;
+  }
+}
+/* =============================== */
+/* COLLAPSIBLE CHURCH INFO BUTTONS */
+/* =============================== */
+
+.church-info-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.info-button-container {
+  width: 100%;
+}
+
+.info-button {
+  width: 100%;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.info-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.info-button.expanded {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.button-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0;
+}
+
+.button-icon {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  padding: 0.7rem;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mass-schedule-button .button-icon {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.office-hours-button .button-icon {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.button-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+  flex: 1;
+}
+
+.button-arrow {
+  color: #6b7280;
+  transition: transform 0.3s ease;
+}
+
+.info-button.expanded .button-arrow {
+  transform: rotate(180deg);
+}
+
+.button-content {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #f3f4f6;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mission & Vision specific styles for button layout */
+.mission-section, .vision-section {
+  margin-bottom: 1.5rem;
+}
+
+.mission-section h4, .vision-section h4 {
+  color: #15803d;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.compact-mission-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.compact-mission-list li {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+
+.mission-number {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  color: white;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 8px rgba(21, 128, 61, 0.3);
+}
+
+.mission-text {
+  color: #4b5563;
+  line-height: 1.5;
+  font-size: 0.85rem;
+  flex: 1;
+}
+
+.compact-vision-text {
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 0.9rem;
+  text-align: justify;
+}
+
+/* Mass Schedule specific styles for button layout */
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.schedule-item-compact {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 10px;
+  border-left: 3px solid #dc2626;
+  transition: all 0.3s ease;
+}
+
+.schedule-item-compact:hover {
+  background: #fef2f2;
+  transform: translateX(3px);
+}
+
+.schedule-day-compact {
+  color: #1f2937;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.schedule-times-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.time-slot-compact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #dc2626;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.time-slot-compact svg {
+  flex-shrink: 0;
+}
+
+/* Office Hours specific styles for button layout */
+.office-hours-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.office-hour-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 3px solid #f59e0b;
+  transition: all 0.3s ease;
+}
+
+.office-hour-item:hover {
+  background: #fefce8;
+  transform: translateX(3px);
+}
+
+.office-days-compact {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.85rem;
+}
+
+.office-hours-compact {
+  color: #f59e0b;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.office-note {
+  background: #f0fdf4;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #bbf7d0;
+}
+
+.office-note p {
+  color: #15803d;
+  font-size: 0.85rem;
+  margin: 0;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Responsive Design for Collapsible Buttons */
+@media (max-width: 768px) {
+  .church-info-buttons {
+    gap: 0.8rem;
+  }
+  
+  .info-button {
+    padding: 1.2rem;
+  }
+  
+  .button-header {
+    gap: 0.8rem;
+  }
+  
+  .button-icon {
+    padding: 0.6rem;
+  }
+  
+  .button-title {
+    font-size: 1rem;
+  }
+  
+  .office-hour-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .compact-mission-list li {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .mission-number {
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-button {
+    padding: 1rem;
+  }
+  
+  .button-header {
+    gap: 0.6rem;
+  }
+  
+  .button-icon {
+    padding: 0.5rem;
+  }
+  
+  .button-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .button-title {
+    font-size: 0.9rem;
+  }
+  
+  .button-content {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+}
