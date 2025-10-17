@@ -1,0 +1,164 @@
+.reminders-section {
+  padding: 5rem 0;
+  background: rgba(255, 255, 255, 0.9);
+  position: relative;
+  width: 100%;
+}
+
+.warning-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.reminders-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+}
+
+.reminder-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  background: #fff3cd;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid #ffc107;
+  transition: transform 0.3s ease;
+}
+
+.reminder-card:hover {
+  transform: translateX(5px);
+}
+
+.reminder-number {
+  background: #856404;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.reminder-text {
+  color: #856404;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+.thank-you-note {
+  text-align: center;
+  background: #2c5530;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.thank-you-note p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+  .reminders-section {
+    padding: 4rem 0;
+  }
+  
+  .reminders-container {
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .reminder-card {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+  
+  .thank-you-note {
+    padding: 1.75rem;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .reminders-section {
+    padding: 3rem 0;
+  }
+  
+  .reminders-container {
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .reminder-card {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .reminder-number {
+    align-self: center;
+    margin-top: 0;
+  }
+  
+  .thank-you-note {
+    padding: 1.5rem;
+  }
+  
+  .thank-you-note p {
+    font-size: 1rem;
+  }
+  
+  .warning-icon {
+    font-size: 2.5rem;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .reminders-section {
+    padding: 2.5rem 0;
+  }
+  
+  .reminder-card {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+  
+  .reminder-number {
+    width: 25px;
+    height: 25px;
+    font-size: 0.8rem;
+  }
+  
+  .reminder-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .thank-you-note {
+    padding: 1.25rem;
+  }
+  
+  .thank-you-note p {
+    font-size: 0.9rem;
+  }
+  
+  .warning-icon {
+    font-size: 2rem;
+  }
+}

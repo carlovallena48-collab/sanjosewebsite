@@ -1,0 +1,241 @@
+.home-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-background {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f4f7f4, #4a7c59);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.church-logo {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+}
+
+.logo-fallback {
+  color: white;
+  font-size: 1.5rem;
+  display: none;
+}
+
+.logo-text-container {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.diocese-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.parish-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2c5530;
+  white-space: nowrap;
+}
+
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.main-nav a:hover {
+  color: #2c5530;
+}
+
+.download-app-button {
+  background: linear-gradient(135deg, #2c5530, #4a7c59);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.download-app-button:hover {
+  transform: translateY(-2px);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  gap: 4px;
+  padding: 0;
+}
+
+.mobile-menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: #2c5530;
+  transition: 0.3s;
+}
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+  .home-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .main-nav ul {
+    gap: 1.5rem;
+  }
+  
+  .parish-text {
+    font-size: 1rem;
+  }
+  
+  .diocese-text {
+    font-size: 0.7rem;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .home-header {
+    padding: 1rem;
+    width: 100vw;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    margin: 0;
+  }
+
+  .main-nav.nav-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .main-nav a {
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    display: block;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .download-app-button {
+    display: none;
+  }
+  
+  .logo-text-container {
+    display: none; /* Hide text on mobile for cleaner look */
+  }
+  
+  .logo-background {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .church-logo {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .home-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .logo-background {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .church-logo {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .main-nav ul {
+    padding: 1.5rem;
+  }
+}
+
+/* Show text on mobile when menu is open */
+@media (max-width: 768px) {
+  .main-nav.nav-open ~ .logo-section .logo-text-container {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+}
