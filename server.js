@@ -24,13 +24,7 @@ mongoose.connect(MONGODB_URI)
   console.error('❌ MongoDB Error:', err);
 });
 
-// ✅ HEALTH CHECK
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'
-  });
-});
+
 
 // ✅ MAIN ANNOUNCEMENTS ROUTE - DIRECT TO WEBSITEANNOUNCEMENTS
 app.get('/api/announcements', async (req, res) => {
