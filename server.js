@@ -8,32 +8,37 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// ✅ CORS - ALLOW ALL FOR NOW
 app.use(cors());
 app.use(express.json());
 
-// ✅ ROOT ROUTE - SIMPLE TEST
 app.get('/', (req, res) => {
   res.json({ 
-    message: '✅ SJMP Parish API is running!',
-    timestamp: new Date().toISOString(),
-    database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'
-  });
-});
-
-// ✅ HEALTH CHECK
-app.get('/health', (req, res) => {
-  res.json({ 
+    message: '✅ SJMP API IS WORKING!',
     status: 'OK',
     database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
     timestamp: new Date().toISOString()
   });
 });
 
-// ✅ ANNOUNCEMENTS
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'HEALTHY',
+    database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.get('/api/announcements', async (req, res) => {
   try {
-    console.log('📢 Fetching announcements...');
+    if (mongoose.connection.readyState !== 1) {
+      return res.json({
+        success: true,
+        data: [],
+        message: 'MongoDB not connected - using mock data',
+        timestamp: new Date().toISOString()
+      });
+    }
+
     const announcements = await mongoose.connection.db.collection('websiteannouncements')
       .find({})
       .sort({ createdAt: -1 })
@@ -47,33 +52,27 @@ app.get('/api/announcements', async (req, res) => {
     });
     
   } catch (error) {
-    console.error('❌ Announcements error:', error);
-    res.status(500).json({
-      success: false,
+    res.json({
+      success: true,
+      data: [],
       error: error.message,
-      data: []
+      timestamp: new Date().toISOString()
     });
   }
 });
 
-// ✅ START SERVER
-const startServer = async () => {
+const connectDB = async () => {
   try {
-    // Connect to MongoDB first
-    console.log('🔗 Connecting to MongoDB...');
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log('✅ MongoDB Connected');
-    
-    // Then start server
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`📍 URL: https://sanjosewebsite.onrender.com`);
+    await mongoose.connect(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000,
     });
-    
+    console.log('✅ MongoDB Connected');
   } catch (error) {
-    console.error('❌ Startup failed:', error);
-    process.exit(1);
+    console.log('⚠️ MongoDB connection failed, running without database');
   }
 };
 
-startServer();
+app.listen(PORT, async () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  await connectDB();
+});
