@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Megaphone, Calendar, Eye, RefreshCw, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Megaphone, Calendar, Eye, RefreshCw, AlertCircle, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import './Announcements.css';
 
 const Announcements = () => {
@@ -76,17 +76,31 @@ const Announcements = () => {
     return image.startsWith('data:image') || image.startsWith('http');
   };
 
+  // Auto-advance carousel
+  useEffect(() => {
+    if (announcements.length > 1) {
+      const interval = setInterval(nextSlide, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [announcements.length, currentIndex]);
+
   if (loading) {
     return (
-      <section className="announcement-section" id="announcements">
+      <section className="announcement-section premium-section" id="announcements">
+        <div className="premium-background"></div>
         <div className="section-content">
-          <div className="section-header">
-            <Megaphone size={48} className="section-icon" />
-            <h2>Church Announcements</h2>
-            <p>Important updates and news from San Jose Manggagawa Parish</p>
+          <div className="section-header premium-header">
+            <div className="icon-wrapper">
+              <Megaphone size={52} className="section-icon premium-icon" />
+              <div className="icon-glow"></div>
+            </div>
+            <h2 className="premium-title">Church Announcements</h2>
+            <p className="premium-subtitle">Important updates and news from San Jose Manggagawa Parish</p>
           </div>
-          <div className="loading-state">
-            <RefreshCw className="spinner" size={32} />
+          <div className="loading-state premium-loading">
+            <div className="spinner-container">
+              <RefreshCw className="spinner premium-spinner" size={40} />
+            </div>
             <p>Loading announcements...</p>
           </div>
         </div>
@@ -96,19 +110,25 @@ const Announcements = () => {
 
   if (error) {
     return (
-      <section className="announcement-section" id="announcements">
+      <section className="announcement-section premium-section" id="announcements">
+        <div className="premium-background"></div>
         <div className="section-content">
-          <div className="section-header">
-            <Megaphone size={48} className="section-icon" />
-            <h2>Church Announcements</h2>
-            <p>Important updates and news from San Jose Manggagawa Parish</p>
+          <div className="section-header premium-header">
+            <div className="icon-wrapper">
+              <Megaphone size={52} className="section-icon premium-icon" />
+              <div className="icon-glow"></div>
+            </div>
+            <h2 className="premium-title">Church Announcements</h2>
+            <p className="premium-subtitle">Important updates and news from San Jose Manggagawa Parish</p>
           </div>
-          <div className="error-state">
-            <AlertCircle size={48} className="error-icon" />
+          <div className="error-state premium-error">
+            <div className="error-icon-container">
+              <AlertCircle size={56} className="error-icon premium-error-icon" />
+            </div>
             <h3>Connection Error</h3>
             <p>{error}</p>
-            <button onClick={fetchAnnouncements} className="retry-button">
-              <RefreshCw size={16} />
+            <button onClick={fetchAnnouncements} className="retry-button premium-retry-btn">
+              <RefreshCw size={18} />
               Try Again
             </button>
           </div>
@@ -118,73 +138,86 @@ const Announcements = () => {
   }
 
   return (
-    <section className="announcement-section" id="announcements">
+    <section className="announcement-section premium-section" id="announcements">
+      <div className="premium-background"></div>
       <div className="section-content">
-        <div className="section-header">
-          <Megaphone size={48} className="section-icon" />
-          <h2>Church Announcements</h2>
-          <p>Important updates and news from San Jose Manggagawa Parish</p>
+        <div className="section-header premium-header">
+          <div className="icon-wrapper">
+            <Megaphone size={52} className="section-icon premium-icon" />
+            <div className="icon-glow"></div>
+            <Sparkles size={20} className="sparkle sparkle-1" />
+            <Sparkles size={16} className="sparkle sparkle-2" />
+            <Sparkles size={18} className="sparkle sparkle-3" />
+          </div>
+          <h2 className="premium-title">Church Announcements</h2>
+          <p className="premium-subtitle">Important updates and news from San Jose Manggagawa Parish</p>
         </div>
         
         {announcements.length === 0 ? (
-          <div className="no-announcements">
+          <div className="no-announcements premium-no-announcements">
+            <div className="empty-state-icon">
+              <Megaphone size={64} />
+            </div>
             <p>No announcements available at the moment.</p>
-            <small>Check back later for updates!</small>
+            <small>Check back later for updates from our parish!</small>
           </div>
         ) : (
-          <div className="announcements-carousel">
+          <div className="announcements-carousel premium-carousel">
             {/* Carousel Container */}
-            <div className="carousel-container">
+            <div className="carousel-container premium-carousel-container">
               {/* Left Navigation Button */}
               {announcements.length > 1 && (
-                <button className="carousel-btn carousel-btn-prev" onClick={prevSlide}>
-                  <ChevronLeft size={24} />
+                <button className="carousel-btn premium-carousel-btn carousel-btn-prev" onClick={prevSlide}>
+                  <ChevronLeft size={28} />
+                  <div className="btn-glow"></div>
                 </button>
               )}
 
               {/* Carousel Slide */}
-              <div className="carousel-slide">
+              <div className="carousel-slide premium-carousel-slide">
                 {announcements.map((announcement, index) => (
                   <div 
                     key={announcement._id} 
-                    className={`announcement-card ${index === currentIndex ? 'active' : ''}`}
+                    className={`announcement-card premium-card ${index === currentIndex ? 'active' : ''}`}
                   >
+                    <div className="card-glow"></div>
                     {isValidImage(announcement.image) && (
-                      <div className="announcement-image-container">
+                      <div className="announcement-image-container premium-image-container">
                         <img 
                           src={announcement.image} 
                           alt={announcement.title}
-                          className="announcement-image"
+                          className="announcement-image premium-image"
                           onError={(e) => {
                             e.target.style.display = 'none';
                           }}
                         />
+                        <div className="image-overlay"></div>
                       </div>
                     )}
                     
-                    <div className="announcement-content">
-                      <div className="announcement-header">
-                        <h3>{announcement.title || 'No Title'}</h3>
-                        <div className="announcement-meta">
-                          <span className="announcement-date">
-                            <Calendar size={14} />
+                    <div className="announcement-content premium-content">
+                      <div className="announcement-header premium-header-content">
+                        <h3 className="premium-card-title">{announcement.title || 'No Title'}</h3>
+                        <div className="announcement-meta premium-meta">
+                          <span className="announcement-date premium-date">
+                            <Calendar size={16} />
                             {formatDate(announcement.createdAt)}
                           </span>
                           {announcement.views > 0 && (
-                            <span className="announcement-views">
-                              <Eye size={14} />
+                            <span className="announcement-views premium-views">
+                              <Eye size={16} />
                               {announcement.views}
                             </span>
                           )}
                         </div>
                       </div>
                       
-                      <div className="announcement-description">
+                      <div className="announcement-description premium-description">
                         {announcement.content || 'No content available'}
                       </div>
                       
                       {announcement.status && (
-                        <div className={`announcement-status status-${announcement.status}`}>
+                        <div className={`announcement-status premium-status status-${announcement.status}`}>
                           {announcement.status}
                         </div>
                       )}
@@ -195,21 +228,24 @@ const Announcements = () => {
 
               {/* Right Navigation Button */}
               {announcements.length > 1 && (
-                <button className="carousel-btn carousel-btn-next" onClick={nextSlide}>
-                  <ChevronRight size={24} />
+                <button className="carousel-btn premium-carousel-btn carousel-btn-next" onClick={nextSlide}>
+                  <ChevronRight size={28} />
+                  <div className="btn-glow"></div>
                 </button>
               )}
             </div>
 
             {/* Dots Indicator */}
             {announcements.length > 1 && (
-              <div className="carousel-dots">
+              <div className="carousel-dots premium-dots">
                 {announcements.map((_, index) => (
                   <button
                     key={index}
-                    className={`dot ${index === currentIndex ? 'active' : ''}`}
+                    className={`dot premium-dot ${index === currentIndex ? 'active' : ''}`}
                     onClick={() => goToSlide(index)}
-                  />
+                  >
+                    <div className="dot-glow"></div>
+                  </button>
                 ))}
               </div>
             )}

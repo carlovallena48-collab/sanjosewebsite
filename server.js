@@ -8,16 +8,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// ✅ FIXED CORS - ALLOW ALL ORIGINS
-app.use(cors({
-  origin: "*", // Allow all origins
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
-
+app.use(cors());
 app.use(express.json());
 
-// ... rest of your code remains the same
 app.get('/', (req, res) => {
   res.json({ 
     message: '✅ SJMP API IS WORKING!',
