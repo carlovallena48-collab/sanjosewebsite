@@ -1,122 +1,120 @@
-/* --- Global Reset & Foundation --- */
-.announcement-section {
-  /* Use a subtle, off-white background for depth */
-  background: #fcfcfc;
-  padding: 6rem 0; /* Increase padding for more breathing room */
+/* --- Carousel Styles --- */
+.announcements-carousel {
   position: relative;
-  width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-.section-content {
-  max-width: 1100px; /* Slightly tighter max-width for focus */
+  max-width: 800px;
   margin: 0 auto;
-  padding: 0 1.5rem; /* Adjust padding for better look on large screens */
 }
 
-/* --- Section Header Styling --- */
-.section-header {
-  text-align: center;
-  margin-bottom: 4rem; /* More space below the header */
-}
-
-.section-icon {
-  /* Rich, deep green for the main icon */
-  color: #1a431c; 
-  filter: drop-shadow(0 4px 8px rgba(26, 67, 28, 0.2)); /* Soft shadow for icon */
-  margin-bottom: 0.5rem;
-}
-
-.section-header h2 {
-  /* Primary dark color for heading */
-  color: #1a431c;
-  font-size: 2.8rem; /* Larger, more impactful heading */
-  font-weight: 700;
-  margin: 0.5rem 0 0.5rem 0;
-  letter-spacing: -0.02em; /* Subtle kerning adjustment */
-}
-
-.section-header p {
-  color: #555;
-  font-size: 1.15rem;
-  max-width: 600px;
-  margin: 0.5rem auto 0;
-}
-
-/* --- Server Status Indicator --- */
-.server-status {
-  display: inline-flex; /* Use inline-flex to center better */
+.carousel-container {
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  margin-top: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
-.server-status.online {
-  background: #d4edda; /* Light green background */
-  color: #0c3d0f; /* Darker green text */
-  border: 1px solid #c3e6cb;
-}
-
-.server-status.offline {
-  background: #f8d7da; /* Light red background */
-  color: #7d0a16; /* Darker red text */
-  border: 1px solid #f5c6cb;
-}
-
-/* --- Announcements Grid & Card Styling --- */
-.announcements-grid {
-  display: grid;
-  /* Adjust minmax for better flow on mid-size screens */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-  gap: 2.5rem; /* More gap between cards */
-  margin-top: 2rem;
+.carousel-slide {
+  display: flex;
+  transition: transform 0.3s ease;
+  width: 100%;
 }
 
 .announcement-card {
   background: white;
-  border-radius: 12px; /* Slightly smaller radius for a modern look */
-  /* Premium, layered shadow for depth */
+  border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s ease;
   height: 100%;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  opacity: 0;
+  transform: scale(0.95);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.announcement-card:hover {
-  transform: translateY(-8px); /* Deeper lift on hover */
-  /* Sharper, more prominent shadow on hover */
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.08);
+.announcement-card.active {
+  opacity: 1;
+  transform: scale(1);
+  position: relative;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(26, 67, 28, 0.9);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-btn:hover {
+  background: #1a431c;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn-prev {
+  left: -25px;
+}
+
+.carousel-btn-next {
+  right: -25px;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: #1a431c;
+  transform: scale(1.2);
+}
+
+.dot:hover {
+  background: #4a7c59;
+}
+
+/* --- Updated Card Styles for Carousel --- */
+.announcement-card.active {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .announcement-image-container {
   width: 100%;
-  height: 220px; /* Slightly taller image container */
+  height: 300px;
   overflow: hidden;
-  /* Subtle bottom border to separate image from content */
-  border-bottom: 1px solid #eee; 
-}
-
-.announcement-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease-out; /* Slower, smoother transition */
-}
-
-.announcement-card:hover .announcement-image {
-  transform: scale(1.08);
+  border-bottom: 1px solid #eee;
 }
 
 .announcement-content {
-  padding: 1.75rem; /* More padding */
+  padding: 2rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -132,7 +130,7 @@
 
 .announcement-header h3 {
   color: #1a431c;
-  font-size: 1.5rem; /* Bigger title */
+  font-size: 1.5rem;
   font-weight: 600;
   margin: 0;
   flex: 1;
@@ -142,268 +140,61 @@
 .announcement-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.5rem;
   align-items: flex-end;
   flex-shrink: 0;
 }
 
-.announcement-date,
-.announcement-views {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: #f3f4f6; /* Subtle grey background */
-  padding: 0.3rem 0.7rem;
-  border-radius: 6px; /* Squarer look */
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #4b5563; /* Darker grey text */
-  white-space: nowrap;
-}
-
-.announcement-date svg,
-.announcement-views svg {
-    color: #4a7c59; /* Icon color consistent with section-icon */
-}
-
-.announcement-description {
-  color: #4a4a4a; /* Softer body text color */
-  line-height: 1.7;
-  margin: 0.75rem 0 1.25rem 0;
-  flex: 1;
-  font-size: 0.95rem;
-}
-
-.announcement-status {
-  display: inline-block;
-  padding: 0.4rem 1rem;
-  border-radius: 20px; /* Pill shape */
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-top: auto;
-  letter-spacing: 0.05em;
-}
-
-.status-published {
-  background: #e6ffed; /* Very light green */
-  color: #0e6d30; /* Darker success green */
-}
-
-.status-draft {
-  background: #fff8e1; /* Very light yellow */
-  color: #a07f00; /* Darker warning yellow */
-}
-
-/* --- Utility/State Styling --- */
-
-/* Loading State */
-.loading-state {
-    text-align: center;
-    padding: 5rem; /* More vertical padding */
-    color: #4a4a4a;
-    font-size: 1.2rem;
-    background: #f5f5f5; /* Light grey background for the state box */
-    border-radius: 12px;
-}
-
-/* Error State */
-.error-state {
-    text-align: center;
-    padding: 3rem;
-    background: #fffafa; /* Very light red-tinted background */
-    border-radius: 12px;
-    border: 1px solid #ffe3e3; /* Soft red border */
-    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.1);
-}
-
-.error-icon {
-    color: #dc3545;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 4px 4px rgba(220, 53, 69, 0.15));
-}
-
-.error-state h3 {
-    color: #dc3545;
-    margin-bottom: 0.5rem;
-    font-size: 1.75rem;
-    font-weight: 600;
-}
-
-.error-state p {
-    color: #333;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-}
-
-.troubleshooting {
-    text-align: left;
-    background: #f9f9f9;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin: 2rem auto;
-    border-left: 5px solid #ff9800; /* Orange accent */
-    max-width: 500px; /* Constrain width for better readability */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.troubleshooting h4 {
-    color: #e65100; /* Darker orange text */
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.troubleshooting ol {
-    margin-left: 1.5rem;
-    padding-left: 0;
-    list-style-type: decimal;
-}
-
-.troubleshooting li {
-    margin-bottom: 0.75rem;
-    line-height: 1.6;
-    color: #555;
-}
-
-.retry-button {
-    background: #4a7c59; /* Primary green button */
-    color: white;
-    border: none;
-    padding: 0.8rem 2rem;
-    border-radius: 25px; /* Pill shape button */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0 auto;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.retry-button:hover {
-    background: #3c654b;
-    transform: translateY(-1px);
-}
-
-/* No Announcements */
-.no-announcements {
-    text-align: center;
-    padding: 4rem;
-    color: #777;
-    background: #f8f8f8;
-    border-radius: 12px;
-    border: 1px dashed #ddd;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.no-announcements p {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-}
-
-.no-announcements small {
-    color: #999;
-}
-
-/* --- Responsive Adjustments --- */
-
-/* Tablet Styles */
-@media (max-width: 1024px) {
-  .announcement-section {
-    padding: 5rem 0;
+/* --- Responsive Carousel --- */
+@media (max-width: 768px) {
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
   }
   
-  .announcements-grid {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
+  .carousel-btn-prev {
+    left: -15px;
+  }
+  
+  .carousel-btn-next {
+    right: -15px;
+  }
+  
+  .announcement-image-container {
+    height: 250px;
   }
   
   .announcement-content {
     padding: 1.5rem;
   }
-
-  .section-header h2 {
-    font-size: 2.5rem;
-  }
-}
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-  .announcement-section {
-    padding: 4rem 0;
-  }
-  
-  .section-content {
-    padding: 0 1.25rem;
-  }
-  
-  .section-header {
-    margin-bottom: 3rem;
-  }
-  
-  .section-header h2 {
-    font-size: 2.2rem;
-  }
-  
-  .announcements-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-  }
   
   .announcement-header {
     flex-direction: column;
-    gap: 0.75rem;
-    align-items: flex-start;
+    gap: 1rem;
   }
   
   .announcement-meta {
     flex-direction: row;
     justify-content: flex-start;
-    width: auto;
-  }
-  
-  .announcement-header h3 {
-    font-size: 1.4rem;
-  }
-  
-  .announcement-content {
-    padding: 1.25rem;
-  }
-  
-  .announcement-image-container {
-    height: 180px;
+    width: 100%;
   }
 }
 
-/* Small Mobile Styles */
 @media (max-width: 480px) {
-  .announcement-section {
-    padding: 3rem 0;
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
   }
   
-  .announcement-card {
-    border-radius: 10px;
+  .carousel-btn-prev {
+    left: -10px;
   }
   
-  .announcement-header h3 {
-    font-size: 1.25rem;
-  }
-  
-  .announcement-date,
-  .announcement-views {
-    font-size: 0.8rem;
-    padding: 0.3rem 0.5rem;
-  }
-  
-  .announcement-description {
-    font-size: 0.9rem;
+  .carousel-btn-next {
+    right: -10px;
   }
   
   .announcement-image-container {
-    height: 160px;
+    height: 200px;
   }
 }

@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Megaphone, Calendar, Eye, RefreshCw, AlertCircle } from 'lucide-react';
+import { Megaphone, Calendar, Eye, RefreshCw, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import './Announcements.css';
 
 const Announcements = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // ✅ FIXED: Change to your Render backend URL
   const API_BASE_URL = 'https://sanjosewebsite.onrender.com';
 
   const fetchAnnouncements = async () => {
     try {
       setLoading(true);
       setError(null);
-
-      console.log('🔗 Fetching from:', `${API_BASE_URL}/api/announcements`);
 
       const response = await fetch(`${API_BASE_URL}/api/announcements`);
       
@@ -24,7 +22,6 @@ const Announcements = () => {
       }
 
       const result = await response.json();
-      console.log('📦 API Response:', result);
 
       if (result.success) {
         setAnnouncements(result.data || []);
@@ -33,7 +30,6 @@ const Announcements = () => {
       }
 
     } catch (err) {
-      console.error('❌ Fetch error:', err);
       setError(err.message);
       setAnnouncements([]);
     } finally {
@@ -44,6 +40,23 @@ const Announcements = () => {
   useEffect(() => {
     fetchAnnouncements();
   }, []);
+
+  // Carousel navigation
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === announcements.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? announcements.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
 
   const formatDate = (dateString) => {
     try {
@@ -58,7 +71,6 @@ const Announcements = () => {
     }
   };
 
-  // Check if image is valid base64 or URL
   const isValidImage = (image) => {
     if (!image) return false;
     return image.startsWith('data:image') || image.startsWith('http');
@@ -95,7 +107,6 @@ const Announcements = () => {
             <AlertCircle size={48} className="error-icon" />
             <h3>Connection Error</h3>
             <p>{error}</p>
-            <p className="debug-info">Trying to connect to: {API_BASE_URL}</p>
             <button onClick={fetchAnnouncements} className="retry-button">
               <RefreshCw size={16} />
               Try Again
@@ -121,51 +132,87 @@ const Announcements = () => {
             <small>Check back later for updates!</small>
           </div>
         ) : (
-          <div className="announcements-grid">
-            {announcements.map((announcement) => (
-              <div key={announcement._id} className="announcement-card">
-                {isValidImage(announcement.image) && (
-                  <div className="announcement-image-container">
-                    <img 
-                      src={announcement.image} 
-                      alt={announcement.title}
-                      className="announcement-image"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                  </div>
-                )}
-                
-                <div className="announcement-content">
-                  <div className="announcement-header">
-                    <h3>{announcement.title || 'No Title'}</h3>
-                    <div className="announcement-meta">
-                      <span className="announcement-date">
-                        <Calendar size={14} />
-                        {formatDate(announcement.createdAt)}
-                      </span>
-                      {announcement.views > 0 && (
-                        <span className="announcement-views">
-                          <Eye size={14} />
-                          {announcement.views}
-                        </span>
+          <div className="announcements-carousel">
+            {/* Carousel Container */}
+            <div className="carousel-container">
+              {/* Left Navigation Button */}
+              {announcements.length > 1 && (
+                <button className="carousel-btn carousel-btn-prev" onClick={prevSlide}>
+                  <ChevronLeft size={24} />
+                </button>
+              )}
+
+              {/* Carousel Slide */}
+              <div className="carousel-slide">
+                {announcements.map((announcement, index) => (
+                  <div 
+                    key={announcement._id} 
+                    className={`announcement-card ${index === currentIndex ? 'active' : ''}`}
+                  >
+                    {isValidImage(announcement.image) && (
+                      <div className="announcement-image-container">
+                        <img 
+                          src={announcement.image} 
+                          alt={announcement.title}
+                          className="announcement-image"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      </div>
+                    )}
+                    
+                    <div className="announcement-content">
+                      <div className="announcement-header">
+                        <h3>{announcement.title || 'No Title'}</h3>
+                        <div className="announcement-meta">
+                          <span className="announcement-date">
+                            <Calendar size={14} />
+                            {formatDate(announcement.createdAt)}
+                          </span>
+                          {announcement.views > 0 && (
+                            <span className="announcement-views">
+                              <Eye size={14} />
+                              {announcement.views}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className="announcement-description">
+                        {announcement.content || 'No content available'}
+                      </div>
+                      
+                      {announcement.status && (
+                        <div className={`announcement-status status-${announcement.status}`}>
+                          {announcement.status}
+                        </div>
                       )}
                     </div>
                   </div>
-                  
-                  <div className="announcement-description">
-                    {announcement.content || 'No content available'}
-                  </div>
-                  
-                  {announcement.status && (
-                    <div className={`announcement-status status-${announcement.status}`}>
-                      {announcement.status}
-                    </div>
-                  )}
-                </div>
+                ))}
               </div>
-            ))}
+
+              {/* Right Navigation Button */}
+              {announcements.length > 1 && (
+                <button className="carousel-btn carousel-btn-next" onClick={nextSlide}>
+                  <ChevronRight size={24} />
+                </button>
+              )}
+            </div>
+
+            {/* Dots Indicator */}
+            {announcements.length > 1 && (
+              <div className="carousel-dots">
+                {announcements.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`dot ${index === currentIndex ? 'active' : ''}`}
+                    onClick={() => goToSlide(index)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
