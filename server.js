@@ -2,60 +2,38 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import path from 'path';
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
-// ✅ CORS FOR VERCEl FRONTEND
-app.use(cors({
-  origin: [
-    'https://your-website.vercel.app',
-    'http://localhost:3000',
-    'http://localhost:5173'  // Vite dev server
-  ],
-  credentials: true
-}));
-
+// ✅ CORS - ALLOW ALL FOR NOW
+app.use(cors());
 app.use(express.json());
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-mongoose.connect(MONGODB_URI)
-.then(() => {
-  console.log('✅ MongoDB Connected');
-})
-.catch(err => {
-  console.error('❌ MongoDB Error:', err);
-});
-
-// ✅ ROOT ROUTE - FIX "Cannot GET /"
+// ✅ ROOT ROUTE - SIMPLE TEST
 app.get('/', (req, res) => {
   res.json({ 
-    message: 'San Jose Manggagawa Parish API',
-    status: 'Running',
-    database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
-    endpoints: [
-      '/api/announcements',
-      '/health'
-    ]
+    message: '✅ SJMP Parish API is running!',
+    timestamp: new Date().toISOString(),
+    database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'
   });
 });
 
 // ✅ HEALTH CHECK
 app.get('/health', (req, res) => {
   res.json({ 
-    status: 'OK', 
+    status: 'OK',
     database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
     timestamp: new Date().toISOString()
   });
 });
 
-// ✅ MAIN ANNOUNCEMENTS ROUTE
+// ✅ ANNOUNCEMENTS
 app.get('/api/announcements', async (req, res) => {
   try {
+    console.log('📢 Fetching announcements...');
     const announcements = await mongoose.connection.db.collection('websiteannouncements')
       .find({})
       .sort({ createdAt: -1 })
@@ -64,11 +42,12 @@ app.get('/api/announcements', async (req, res) => {
     res.json({
       success: true,
       data: announcements,
-      count: announcements.length
+      count: announcements.length,
+      timestamp: new Date().toISOString()
     });
     
   } catch (error) {
-    console.error('❌ Error:', error);
+    console.error('❌ Announcements error:', error);
     res.status(500).json({
       success: false,
       error: error.message,
@@ -77,6 +56,24 @@ app.get('/api/announcements', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`📍 Server: http://localhost:${PORT}`);
-});
+// ✅ START SERVER
+const startServer = async () => {
+  try {
+    // Connect to MongoDB first
+    console.log('🔗 Connecting to MongoDB...');
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('✅ MongoDB Connected');
+    
+    // Then start server
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`📍 URL: https://sanjosewebsite.onrender.com`);
+    });
+    
+  } catch (error) {
+    console.error('❌ Startup failed:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
