@@ -1,65 +1,109 @@
 import React, { useState } from 'react';
-import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, ZoomIn, Filter } from 'lucide-react';
 import './Gallery.css';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeCategory, setActiveCategory] = useState("all");
 
-  // Sample gallery images - palitan mo to ng actual images mo
+  // Sample gallery images with different aspect ratios for masonry effect
   const galleryImages = [
     {
       id: 1,
       src: "/images/church1.jpg",
-      alt: "San Jose Manggagawa Parish Church Building",
-      category: "church"
+      alt: "San Jose Manggagawa Parish Church Exterior",
+      category: "architecture",
+      aspect: "vertical"
     },
     {
       id: 2,
       src: "/images/church2.jpg",
-      alt: "Church Interior and Altar",
-      category: "interior"
+      alt: "Main Altar and Sanctuary",
+      category: "interior",
+      aspect: "horizontal"
     },
     {
       id: 3,
       src: "/images/church3.jpg",
-      alt: "Church Community Gathering",
-      category: "events"
+      alt: "Sunday Mass Celebration with Community",
+      category: "events",
+      aspect: "horizontal"
     },
     {
       id: 4,
       src: "/images/simbahan.jpg",
-      alt: "Sunday Mass Celebration",
-      category: "mass"
+      alt: "Church Facade during Golden Hour",
+      category: "architecture",
+      aspect: "vertical"
     },
     {
       id: 5,
       src: "/images/church1.jpg",
-      alt: "Church Activities",
-      category: "events"
+      alt: "Children's Ministry Activities",
+      category: "ministry",
+      aspect: "square"
     },
     {
       id: 6,
       src: "/images/church2.jpg",
-      alt: "Church Volunteers",
-      category: "community"
+      alt: "Church Volunteers in Community Service",
+      category: "community",
+      aspect: "vertical"
     },
     {
       id: 7,
       src: "/images/church3.jpg",
-      alt: "Church Choir",
-      category: "ministry"
+      alt: "Church Choir during Worship",
+      category: "ministry",
+      aspect: "horizontal"
     },
     {
       id: 8,
       src: "/images/simbahan.jpg",
-      alt: "Baptism Ceremony",
-      category: "sacraments"
+      alt: "Baptism Ceremony at the Church",
+      category: "sacraments",
+      aspect: "square"
+    },
+    {
+      id: 9,
+      src: "/images/church1.jpg",
+      alt: "Wedding Celebration",
+      category: "sacraments",
+      aspect: "horizontal"
+    },
+    {
+      id: 10,
+      src: "/images/church2.jpg",
+      alt: "Christmas Decorations",
+      category: "events",
+      aspect: "vertical"
+    },
+    {
+      id: 11,
+      src: "/images/church3.jpg",
+      alt: "Prayer Gathering",
+      category: "community",
+      aspect: "square"
+    },
+    {
+      id: 12,
+      src: "/images/simbahan.jpg",
+      alt: "Church Garden and Grounds",
+      category: "architecture",
+      aspect: "horizontal"
     }
   ];
 
-  const categories = ["all", "church", "interior", "events", "mass", "community", "ministry", "sacraments"];
-  const [activeCategory, setActiveCategory] = useState("all");
+  const categories = [
+    { id: "all", name: "All Photos", count: galleryImages.length },
+    { id: "architecture", name: "Architecture", count: galleryImages.filter(img => img.category === "architecture").length },
+    { id: "interior", name: "Interior", count: galleryImages.filter(img => img.category === "interior").length },
+    { id: "events", name: "Events", count: galleryImages.filter(img => img.category === "events").length },
+    { id: "ministry", name: "Ministries", count: galleryImages.filter(img => img.category === "ministry").length },
+    { id: "community", name: "Community", count: galleryImages.filter(img => img.category === "community").length },
+    { id: "sacraments", name: "Sacraments", count: galleryImages.filter(img => img.category === "sacraments").length }
+  ];
 
   const filteredImages = activeCategory === "all" 
     ? galleryImages 
@@ -102,31 +146,45 @@ const Gallery = () => {
 
   return (
     <section className="gallery-section" id="gallery">
-      <div className="section-content">
-        <div className="section-header">
-          <h2>Church Gallery</h2>
-          <p>Explore moments from our church community and activities</p>
+      <div className="gallery-container">
+        {/* Section Header */}
+        <div className="gallery-header">
+          <div className="header-content">
+            <h2 className="gallery-title">Church Gallery</h2>
+          
+        
+            <div className="header-decoration">
+         
+            </div>
+          </div>
         </div>
 
         {/* Category Filters */}
-        <div className="gallery-filters">
-          {categories.map(category => (
-            <button
-              key={category}
-              className={`filter-btn ${activeCategory === category ? 'active' : ''}`}
-              onClick={() => setActiveCategory(category)}
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </button>
-          ))}
+        <div className="gallery-filters-container">
+          <div className="filters-header">
+            <Filter size={20} />
+            <span>Filter by Category</span>
+          </div>
+          <div className="gallery-filters">
+            {categories.map(category => (
+              <button
+                key={category.id}
+                className={`filter-btn ${activeCategory === category.id ? 'active' : ''}`}
+                onClick={() => setActiveCategory(category.id)}
+              >
+                <span className="filter-text">{category.name}</span>
+                <span className="filter-count">{category.count}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Gallery Grid */}
+        {/* Gallery Grid - Masonry Style */}
         <div className="gallery-grid">
           {filteredImages.map((image, index) => (
             <div 
               key={image.id} 
-              className="gallery-item"
+              className={`gallery-item ${image.aspect}`}
               onClick={() => openLightbox(image, index)}
             >
               <div className="image-container">
@@ -139,20 +197,34 @@ const Gallery = () => {
                     const placeholder = document.createElement('div');
                     placeholder.className = 'gallery-placeholder';
                     placeholder.innerHTML = '🏛️';
+                    placeholder.style.display = 'flex';
                     e.target.parentNode.appendChild(placeholder);
                   }}
                 />
                 <div className="image-overlay">
-                  <ZoomIn size={24} />
-                  <span>View</span>
+                  <div className="overlay-content">
+                    <ZoomIn size={24} className="zoom-icon" />
+                    <span className="view-text">Click to View</span>
+                  </div>
+                  <div className="image-category">{image.category}</div>
                 </div>
               </div>
-              <div className="image-caption">
-                <p>{image.alt}</p>
+              <div className="image-info">
+                <p className="image-description">{image.alt}</p>
+                <span className="image-category-tag">{image.category}</span>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Empty State */}
+        {filteredImages.length === 0 && (
+          <div className="empty-state">
+            <div className="empty-icon">📷</div>
+            <h3>No photos found</h3>
+            <p>Try selecting a different category</p>
+          </div>
+        )}
 
         {/* Lightbox Modal */}
         {selectedImage && (
@@ -176,12 +248,22 @@ const Gallery = () => {
                 <button className="lightbox-nav next" onClick={nextImage}>
                   <ChevronRight size={32} />
                 </button>
+
+                <div className="lightbox-zoom-hint">
+                  <ZoomIn size={16} />
+                  <span>Scroll to zoom • Click outside to close</span>
+                </div>
               </div>
 
               <div className="lightbox-info">
-                <h3>{selectedImage.alt}</h3>
-                <div className="lightbox-counter">
-                  {currentIndex + 1} / {filteredImages.length}
+                <div className="lightbox-header">
+                  <h3>{selectedImage.alt}</h3>
+                  <div className="lightbox-meta">
+                    <span className="image-category-badge">{selectedImage.category}</span>
+                    <span className="lightbox-counter">
+                      {currentIndex + 1} of {filteredImages.length}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

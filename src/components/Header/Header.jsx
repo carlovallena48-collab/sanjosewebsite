@@ -1,46 +1,85 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import './Header.css';
 
-const Header = ({ isMenuOpen, toggleMenu }) => {
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  // ✅ FUNCTION PARA MAG-REDIRECT SA EXPO BUILD
+  const handleDownload = () => {
+    window.open('https://expo.dev/accounts/carlovallena/projects/sjmp-parish-app/builds/6a9d892b-c1ca-4d66-a5ac-7ef4c2692082', '_blank');
+  };
+
   return (
-    <header className="home-header">
-      <div className="logo-section">
-        <div className="logo-background">
-          <img src="/images/LOGO.png" alt="Church Logo" className="church-logo" onError={(e) => {
-            e.target.style.display = 'none';
-            e.target.nextSibling.style.display = 'block';
-          }} />
-          <div className="logo-fallback">⛪</div>
+    <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+      <div className="header-content">
+        {/* Logo Section */}
+        <div className="logo-area">
+          <div className="logo-wrapper">
+            <div className="logo-circle">
+              <img 
+                src="/images/LOGO.png" 
+                alt="Church Logo" 
+                className="logo-image"
+              />
+            </div>
+          </div>
+          <div className="church-name">
+            <div className="diocese">Diocese of Antipolo</div>
+            <div className="parish">San Jose Manggagawa Parish</div>
+          </div>
         </div>
-        <div className="logo-text-container">
-          <span className="diocese-text">Diocese of Antipolo</span>
-          <span className="parish-text">San Jose Manggagawa Parish</span>
+
+        {/* Navigation */}
+        <nav className={`navigation ${isMenuOpen ? 'nav-open' : ''}`}>
+          <div className="nav-links">
+            <a href="#home" onClick={closeMenu}>Home</a>
+            <a href="#church-info" onClick={closeMenu}>Church Info</a>
+            <a href="#gallery" onClick={closeMenu}>Gallery</a>
+            <a href="#events" onClick={closeMenu}>Events</a>
+            <a href="#announcements" onClick={closeMenu}>Announcements</a>
+            <a href="#history" onClick={closeMenu}>History</a>
+            <a href="#reminders" onClick={closeMenu}>Reminders</a>
+            <a href="#contact" onClick={closeMenu}>Contact</a>
+          </div>
+        </nav>
+
+        {/* Download Button */}
+        <div className="header-actions">
+          {/* ✅ UPDATED BUTTON WITH ONCLICK */}
+          <button className="download-btn" onClick={handleDownload}>
+            Download App <ArrowRight size={16} />
+          </button>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className={`mobile-menu-btn ${isMenuOpen ? 'open' : ''}`}
+          onClick={toggleMenu}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
-      
-      <nav className={`main-nav ${isMenuOpen ? 'nav-open' : ''}`}>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#church-info">Church Info</a></li>
-          <li><a href="#gallery">Gallery</a></li> {/* ADD THIS LINE */}
-          <li><a href="#events">Events</a></li>
-          <li><a href="#announcements">Announcements</a></li>
-          <li><a href="#promotions">Programs</a></li>
-          <li><a href="#reminders">Reminders</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-      
-      <button className="mobile-menu-toggle" onClick={toggleMenu}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      
-      <a href="#download" className="download-app-button">
-        DOWNLOAD APP <ArrowRight size={16} />
-      </a>
     </header>
   );
 };

@@ -1,120 +1,516 @@
-.promotion-section {
-  padding: 5rem 0;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+.history-section {
+  padding: 4rem 0;
+  background: 
+    linear-gradient(135deg, #f8f4f0 0%, #f1e8e0 100%),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23000"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* Vintage Background Elements */
+.vintage-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(74, 124, 89, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.historical-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(30deg, rgba(139, 69, 19, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(139, 69, 19, 0.02) 87.5%, rgba(139, 69, 19, 0.02)),
+    linear-gradient(150deg, rgba(139, 69, 19, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(139, 69, 19, 0.02) 87.5%, rgba(139, 69, 19, 0.02)),
+    linear-gradient(30deg, rgba(139, 69, 19, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(139, 69, 19, 0.02) 87.5%, rgba(139, 69, 19, 0.02)),
+    linear-gradient(150deg, rgba(139, 69, 19, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(139, 69, 19, 0.02) 87.5%, rgba(139, 69, 19, 0.02)),
+    linear-gradient(60deg, rgba(139, 69, 19, 0.03) 25%, transparent 25.5%, transparent 75%, rgba(139, 69, 19, 0.03) 75%, rgba(139, 69, 19, 0.03)),
+    linear-gradient(60deg, rgba(139, 69, 19, 0.03) 25%, transparent 25.5%, transparent 75%, rgba(139, 69, 19, 0.03) 75%, rgba(139, 69, 19, 0.03));
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  pointer-events: none;
+}
+
+.section-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Header Styles */
+.history-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 2rem 0;
+}
+
+.header-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.decoration-line {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #8b4513, transparent);
+}
+
+.header-icon {
+  padding: 1rem;
+  background: #8b4513;
+  border-radius: 50%;
+  margin: 0 1.5rem;
+  color: white;
+  box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+}
+
+.history-main-title {
+  font-size: 3.5rem;
+  color: #2c5530;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Georgia', serif;
+}
+
+.history-subtitle {
+  font-size: 1.3rem;
+  color: #8b4513;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.header-underline {
+  width: 200px;
+  height: 3px;
+  background: linear-gradient(90deg, #2c5530, #8b4513);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* Church Facts */
+.church-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.fact-card {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid rgba(139, 69, 19, 0.2);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.fact-card:hover {
+  transform: translateY(-5px);
+}
+
+.fact-icon {
+  display: inline-flex;
+  padding: 1rem;
+  background: #8b4513;
+  border-radius: 50%;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.fact-content h3 {
+  color: #2c5530;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.fact-content p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* FIXED Timeline Styles */
+.timeline-container {
+  position: relative;
+  margin: 6rem 0;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    #8b4513 10%, 
+    #8b4513 90%, 
+    transparent 100%);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.timeline-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #2c5530, #4a7c59);
+  transform: scaleY(0);
+  transform-origin: top;
+  animation: fillTimeline 2s ease-in-out forwards;
+}
+
+@keyframes fillTimeline {
+  to { transform: scaleY(1); }
+}
+
+.timeline-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
   position: relative;
   width: 100%;
 }
 
-.promotions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+.timeline-item.left {
+  flex-direction: row;
 }
 
-.promotion-card {
-  background: white;
-  padding: 2.5rem 2rem;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+.timeline-item.right {
+  flex-direction: row-reverse;
+}
+
+.timeline-marker {
+  flex: 0 0 auto;
+  width: 120px;
   text-align: center;
+  z-index: 2;
+  position: relative;
+}
+
+.marker-circle {
+  width: 60px;
+  height: 60px;
+  background: white;
+  border: 4px solid #8b4513;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.5rem;
+  color: #8b4513;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 3;
+}
+
+.marker-year {
+  font-weight: bold;
+  color: #2c5530;
+  font-size: 0.9rem;
+  background: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  display: inline-block;
+  border: 1px solid rgba(139, 69, 19, 0.3);
+}
+
+.timeline-content {
+  flex: 0 0 45%;
+  max-width: 400px;
+}
+
+.timeline-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(139, 69, 19, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-top: 4px solid #4a7c59;
-  height: 100%;
 }
 
-.promotion-card:hover {
+.timeline-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
-.promotion-card h3 {
+.card-image {
+  height: 200px;
+  background: #f8f4f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.timeline-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.image-fallback {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #f8f4f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8b4513;
+}
+
+.card-content {
+  padding: 2rem;
+}
+
+.card-content h3 {
   color: #2c5530;
   font-size: 1.4rem;
   margin-bottom: 1rem;
-  line-height: 1.3;
+  font-weight: 600;
 }
 
-.promotion-card p {
+.card-content p {
   color: #666;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.promotion-details {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.timeline-date {
+  color: #8b4513;
+  font-weight: bold;
   font-size: 0.9rem;
-  color: #4a7c59;
+  font-style: italic;
+}
+
+/* Priests Section */
+.priests-section {
+  margin: 6rem 0;
+}
+
+.section-subheader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-subheader h2 {
+  font-size: 2.5rem;
+  color: #2c5530;
+  margin-bottom: 1rem;
+}
+
+.subheader-underline {
+  width: 100px;
+  height: 3px;
+  background: #8b4513;
+  margin: 0 auto;
+}
+
+.priests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.priest-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(139, 69, 19, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.priest-card:hover {
+  transform: translateY(-10px);
+}
+
+.priest-image-container {
+  position: relative;
+  padding: 2rem 2rem 1rem;
+  text-align: center;
+}
+
+.image-frame {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto;
+  padding: 4px;
+  background: linear-gradient(135deg, #8b4513, #2c5530);
+  position: relative;
+}
+
+.priest-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid white;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(44, 85, 48, 0.1));
+  border-radius: 50%;
+}
+
+.priest-tenure {
+  background: #8b4513;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.priest-info {
+  padding: 1.5rem 2rem 2rem;
+  text-align: center;
+}
+
+.priest-info h3 {
+  color: #2c5530;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.priest-role {
+  color: #8b4513;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.priest-specialty {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Historical Quote */
+.historical-quote {
+  background: rgba(139, 69, 19, 0.1);
+  padding: 3rem;
+  border-radius: 15px;
+  text-align: center;
+  border-left: 4px solid #8b4513;
+  margin: 4rem 0;
+  position: relative;
+}
+
+.quote-mark {
+  font-size: 4rem;
+  color: #8b4513;
+  line-height: 1;
+  margin-bottom: 1rem;
+  font-family: serif;
+}
+
+.quote-text {
+  font-size: 1.3rem;
+  color: #2c5530;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.quote-author {
+  color: #8b4513;
   font-weight: 500;
 }
 
-/* Tablet Styles */
+/* FIXED Responsive Design */
 @media (max-width: 1024px) {
-  .promotion-section {
-    padding: 4rem 0;
-  }
-  
-  .promotions-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .promotion-card {
-    padding: 2rem 1.5rem;
+  .timeline-content {
+    flex: 0 0 48%;
   }
 }
 
-/* Mobile Styles */
 @media (max-width: 768px) {
-  .promotion-section {
-    padding: 3rem 0;
+  .history-main-title {
+    font-size: 2.5rem;
   }
   
-  .promotions-grid {
+  .timeline-item {
+    flex-direction: column !important;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .timeline-marker {
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+  
+  .timeline-content {
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .timeline-line {
+    left: 30px;
+  }
+  
+  .priests-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
   }
   
-  .promotion-card {
-    padding: 1.5rem 1.25rem;
-  }
-  
-  .promotion-card h3 {
-    font-size: 1.3rem;
-  }
-  
-  .promotion-card p {
-    font-size: 0.95rem;
+  .church-facts-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-/* Small Mobile Styles */
 @media (max-width: 480px) {
-  .promotion-section {
-    padding: 2.5rem 0;
+  .section-content {
+    padding: 0 1rem;
   }
   
-  .promotions-grid {
-    gap: 1rem;
+  .history-main-title {
+    font-size: 2rem;
   }
   
-  .promotion-card {
-    padding: 1.25rem 1rem;
+  .timeline-card {
+    max-width: 100%;
   }
   
-  .promotion-card h3 {
-    font-size: 1.2rem;
-  }
-  
-  .promotion-card p {
-    font-size: 0.9rem;
-    margin-bottom: 1.25rem;
-  }
-  
-  .promotion-details {
-    font-size: 0.85rem;
+  .timeline-content {
+    padding: 0;
   }
 }
