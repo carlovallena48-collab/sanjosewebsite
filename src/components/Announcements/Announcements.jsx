@@ -7,12 +7,15 @@ const Announcements = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_BASE_URL = 'http://localhost:5000';
+  // ✅ FIXED: Change to your Render backend URL
+  const API_BASE_URL = 'https://sanjosewebsite.onrender.com';
 
   const fetchAnnouncements = async () => {
     try {
       setLoading(true);
       setError(null);
+
+      console.log('🔗 Fetching from:', `${API_BASE_URL}/api/announcements`);
 
       const response = await fetch(`${API_BASE_URL}/api/announcements`);
       
@@ -21,6 +24,7 @@ const Announcements = () => {
       }
 
       const result = await response.json();
+      console.log('📦 API Response:', result);
 
       if (result.success) {
         setAnnouncements(result.data || []);
@@ -29,6 +33,7 @@ const Announcements = () => {
       }
 
     } catch (err) {
+      console.error('❌ Fetch error:', err);
       setError(err.message);
       setAnnouncements([]);
     } finally {
@@ -90,6 +95,7 @@ const Announcements = () => {
             <AlertCircle size={48} className="error-icon" />
             <h3>Connection Error</h3>
             <p>{error}</p>
+            <p className="debug-info">Trying to connect to: {API_BASE_URL}</p>
             <button onClick={fetchAnnouncements} className="retry-button">
               <RefreshCw size={16} />
               Try Again
