@@ -61,7 +61,7 @@ app.get('/api/announcements', async (req, res) => {
   }
 });
 
-// ✅ UPDATED EVENTS ROUTE WITH IMAGE SUPPORT
+// ✅ SIMPLE EVENTS ROUTE - NO DATE FORMATTING
 app.get('/api/events', async (req, res) => {
   try {
     if (mongoose.connection.readyState !== 1) {
@@ -75,21 +75,21 @@ app.get('/api/events', async (req, res) => {
 
     const events = await mongoose.connection.db.collection('websiteevents')
       .find({})
-      .sort({ date: 1 }) // Sort by date ascending
+      .sort({ date: 1 })
       .toArray();
     
-    // Convert MongoDB ObjectId to string and format dates
+    // Simple mapping - NO DATE FORMATTING
     const formattedEvents = events.map(event => ({
       _id: event._id.toString(),
       title: event.title,
       description: event.description,
-      date: event.date,
+      date: event.date, // ✅ KEEP AS IS
       time: event.time,
       location: event.location,
       category: event.category,
       contactPerson: event.contactPerson,
       isFeatured: event.isFeatured || false,
-      image: event.image || null, // ✅ ADDED IMAGE FIELD
+      image: event.image || null,
       status: event.status || 'scheduled',
       attendees: event.attendees || 0,
       createdAt: event.createdAt,
@@ -114,7 +114,7 @@ app.get('/api/events', async (req, res) => {
   }
 });
 
-// ✅ UPDATED SINGLE EVENT ROUTE WITH IMAGE SUPPORT
+// ✅ SIMPLE SINGLE EVENT ROUTE
 app.get('/api/events/:id', async (req, res) => {
   try {
     if (mongoose.connection.readyState !== 1) {
@@ -150,13 +150,13 @@ app.get('/api/events/:id', async (req, res) => {
       _id: event._id.toString(),
       title: event.title,
       description: event.description,
-      date: event.date,
+      date: event.date, // ✅ KEEP AS IS
       time: event.time,
       location: event.location,
       category: event.category,
       contactPerson: event.contactPerson,
       isFeatured: event.isFeatured || false,
-      image: event.image || null, // ✅ ADDED IMAGE FIELD
+      image: event.image || null,
       status: event.status || 'scheduled',
       attendees: event.attendees || 0,
       createdAt: event.createdAt,

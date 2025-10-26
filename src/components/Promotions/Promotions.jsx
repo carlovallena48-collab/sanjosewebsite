@@ -6,7 +6,7 @@ const Promotions = () => {
   const priests = [
    {
       id: 2,
-      name: "Fr. Jojo Alisbo",
+      name: "Rev. Fr. Jojo Alisbo",
       image: "/images/Jojo.jpg",
       description: "Parish Priest ng San Jose Manggagawa Parish Church",
       tenure: "2012 - 2015 (3 na taon)",
@@ -15,7 +15,7 @@ const Promotions = () => {
    
     {
       id: 1,
-      name: "Fr. Paul Merida",
+      name: "Rev. Fr. Paul Merida",
       image: "/images/FrPaul.jpg",
       description: "Parish Priest ng San Jose Manggagawa Parish Church",
       tenure: "2016 - 2020 (4 na taon)",
@@ -23,7 +23,7 @@ const Promotions = () => {
     },
       {
       id: 4,
-      name: "Peejay Pendon",
+      name: "Rev. Fr.Peejay Pendon",
       image: "/images/fr.pendon.jpg",
       description: "Parish Priest ng San Jose Manggagawa Parish Church",
       tenure: "2022 - 2023 (1 taon)",
@@ -31,7 +31,7 @@ const Promotions = () => {
     },
     {
       id: 3,
-      name: "Fr. Francis",
+      name: "Rev. Fr.Francis Roi A. Madarang",
       image: "/images/parish6.jpg",
       description: "Kasalukuyang Parish Priest",
       tenure: "2023 - Present",
