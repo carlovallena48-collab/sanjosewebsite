@@ -61,7 +61,7 @@ app.get('/api/announcements', async (req, res) => {
   }
 });
 
-// ✅ ADD EVENTS ROUTE HERE
+// ✅ UPDATED EVENTS ROUTE WITH IMAGE SUPPORT
 app.get('/api/events', async (req, res) => {
   try {
     if (mongoose.connection.readyState !== 1) {
@@ -89,7 +89,11 @@ app.get('/api/events', async (req, res) => {
       category: event.category,
       contactPerson: event.contactPerson,
       isFeatured: event.isFeatured || false,
-      createdAt: event.createdAt
+      image: event.image || null, // ✅ ADDED IMAGE FIELD
+      status: event.status || 'scheduled',
+      attendees: event.attendees || 0,
+      createdAt: event.createdAt,
+      updatedAt: event.updatedAt
     }));
     
     res.json({
@@ -110,7 +114,7 @@ app.get('/api/events', async (req, res) => {
   }
 });
 
-// ✅ ADD SINGLE EVENT ROUTE (for future use)
+// ✅ UPDATED SINGLE EVENT ROUTE WITH IMAGE SUPPORT
 app.get('/api/events/:id', async (req, res) => {
   try {
     if (mongoose.connection.readyState !== 1) {
@@ -152,7 +156,11 @@ app.get('/api/events/:id', async (req, res) => {
       category: event.category,
       contactPerson: event.contactPerson,
       isFeatured: event.isFeatured || false,
-      createdAt: event.createdAt
+      image: event.image || null, // ✅ ADDED IMAGE FIELD
+      status: event.status || 'scheduled',
+      attendees: event.attendees || 0,
+      createdAt: event.createdAt,
+      updatedAt: event.updatedAt
     };
     
     res.json({
