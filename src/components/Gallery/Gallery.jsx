@@ -9,85 +9,150 @@ const Gallery = () => {
 
   // Sample gallery images with different aspect ratios for masonry effect
   const galleryImages = [
+    // Staff Images
     {
       id: 1,
+      src: "/images/staff1.png",
+      alt: "San Jose Manggagawa Parish Staff",
+      category: "staff",
+      aspect: "vertical"
+    },
+    {
+      id: 2,
+      src: "/images/staff2.png",
+      alt: "SAN JOSE MANGGAGAVA PARISH - AXITOLO - THE DRESS CURRENT",
+      category: "staff",
+      aspect: "vertical"
+    },
+    {
+      id: 3,
+      src: "/images/staff3.png",
+      alt: "DIOCESE OF ANTIPOLO - SAN JOSE MANGGAGAWA PARISH",
+      category: "staff",
+      aspect: "vertical"
+    },
+    {
+      id: 4,
+      src: "/images/staff4.png",
+      alt: "San Jose Manggagawa Parish Staff Member",
+      category: "staff",
+      aspect: "vertical"
+    },
+    {
+      id: 5,
+      src: "/images/staff5.png",
+      alt: "San Jose Manggagawa Parish Staff Member",
+      category: "staff",
+      aspect: "vertical"
+    },
+    {
+      id: 6,
+      src: "/images/staff6.png",
+      alt: "San Jose Manggagawa Parish Staff Member",
+      category: "staff",
+      aspect: "vertical"
+    },
+    {
+      id: 7,
+      src: "/images/staff7.png",
+      alt: "THE BROWN CHINESE - San Jose Manggagawa Parish",
+      category: "staff",
+      aspect: "vertical"
+    },
+    {
+      id: 8,
+      src: "/images/staff8.png",
+      alt: "San Jose Manggagawa Parish Staff Member",
+      category: "staff",
+      aspect: "vertical"
+    },
+    {
+      id: 9,
+      src: "/images/staff9.png",
+      alt: "San Jose Manggagawa Parish Staff Member",
+      category: "staff",
+      aspect: "vertical"
+    },
+    // Original Church Images
+    {
+      id: 10,
       src: "/images/church1.jpg",
       alt: "San Jose Manggagawa Parish Church Exterior",
       category: "architecture",
       aspect: "vertical"
     },
     {
-      id: 2,
+      id: 11,
       src: "/images/church2.jpg",
       alt: "Main Altar and Sanctuary",
       category: "interior",
       aspect: "horizontal"
     },
     {
-      id: 3,
+      id: 12,
       src: "/images/church3.jpg",
       alt: "Sunday Mass Celebration with Community",
       category: "events",
       aspect: "horizontal"
     },
     {
-      id: 4,
+      id: 13,
       src: "/images/simbahan.jpg",
       alt: "Church Facade during Golden Hour",
       category: "architecture",
       aspect: "vertical"
     },
     {
-      id: 5,
+      id: 14,
       src: "/images/church1.jpg",
       alt: "Children's Ministry Activities",
       category: "ministry",
       aspect: "square"
     },
     {
-      id: 6,
+      id: 15,
       src: "/images/church2.jpg",
       alt: "Church Volunteers in Community Service",
       category: "community",
       aspect: "vertical"
     },
     {
-      id: 7,
+      id: 16,
       src: "/images/church3.jpg",
       alt: "Church Choir during Worship",
       category: "ministry",
       aspect: "horizontal"
     },
     {
-      id: 8,
+      id: 17,
       src: "/images/simbahan.jpg",
       alt: "Baptism Ceremony at the Church",
       category: "sacraments",
       aspect: "square"
     },
     {
-      id: 9,
+      id: 18,
       src: "/images/church1.jpg",
       alt: "Wedding Celebration",
       category: "sacraments",
       aspect: "horizontal"
     },
     {
-      id: 10,
+      id: 19,
       src: "/images/church2.jpg",
       alt: "Christmas Decorations",
       category: "events",
       aspect: "vertical"
     },
     {
-      id: 11,
+      id: 20,
       src: "/images/church3.jpg",
       alt: "Prayer Gathering",
       category: "community",
       aspect: "square"
     },
     {
-      id: 12,
+      id: 21,
       src: "/images/simbahan.jpg",
       alt: "Church Garden and Grounds",
       category: "architecture",
@@ -97,6 +162,7 @@ const Gallery = () => {
 
   const categories = [
     { id: "all", name: "All Photos", count: galleryImages.length },
+    { id: "staff", name: "Staff", count: galleryImages.filter(img => img.category === "staff").length },
     { id: "architecture", name: "Architecture", count: galleryImages.filter(img => img.category === "architecture").length },
     { id: "interior", name: "Interior", count: galleryImages.filter(img => img.category === "interior").length },
     { id: "events", name: "Events", count: galleryImages.filter(img => img.category === "events").length },
@@ -151,10 +217,8 @@ const Gallery = () => {
         <div className="gallery-header">
           <div className="header-content">
             <h2 className="gallery-title">Church Gallery</h2>
-          
-        
             <div className="header-decoration">
-         
+              {/* Decorative elements */}
             </div>
           </div>
         </div>
@@ -196,7 +260,7 @@ const Gallery = () => {
                     e.target.style.display = 'none';
                     const placeholder = document.createElement('div');
                     placeholder.className = 'gallery-placeholder';
-                    placeholder.innerHTML = '🏛️';
+                    placeholder.innerHTML = image.category === 'staff' ? '👨‍💼' : '🏛️';
                     placeholder.style.display = 'flex';
                     e.target.parentNode.appendChild(placeholder);
                   }}

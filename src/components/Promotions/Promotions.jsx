@@ -4,22 +4,40 @@ import './Promotions.css';
 
 const Promotions = () => {
   const priests = [
+   {
+      id: 2,
+      name: "Fr. Jojo Alisbo",
+      image: "/images/Jojo.jpg",
+      description: "Parish Priest ng San Jose Manggagawa Parish Church",
+      tenure: "2012 - 2015 (3 na taon)",
+      
+    },
+   
     {
       id: 1,
       name: "Fr. Paul Merida",
-      image: "/images/parish3.jpg",
+      image: "/images/FrPaul.jpg",
       description: "Parish Priest ng San Jose Manggagawa Parish Church",
-      tenure: "Nagsimula 2018",
-      specialty: "Mga Sakramento at Pagdiriwang"
+      tenure: "2016 - 2020 (4 na taon)",
+      
+    },
+      {
+      id: 4,
+      name: "Peejay Pendon",
+      image: "/images/fr.pendon.jpg",
+      description: "Parish Priest ng San Jose Manggagawa Parish Church",
+      tenure: "2022 - 2023 (1 taon)",
+    
     },
     {
-      id: 2,
-      name: "Fr. Jojo Alisbo",
+      id: 3,
+      name: "Fr. Francis",
       image: "/images/parish6.jpg",
-      description: "Assistant Priest ng San Jose Manggagawa Parish Church",
-      tenure: "Nagsimula 2019",
-      specialty: "Programang Pang-komunidad"
+      description: "Kasalukuyang Parish Priest",
+      tenure: "2023 - Present",
+  
     }
+
   ];
 
   const timelineData = [
@@ -60,7 +78,8 @@ const Promotions = () => {
   const churchFacts = [
     { icon: <Calendar size={24} />, fact: "Itinatag noong 1930", detail: "90+ Taon ng Kasaysayan" },
     { icon: <MapPin size={24} />, fact: "Barangay San Jose", detail: "Montalban, Rizal" },
-    { icon: <Church size={24} />, fact: "Parish Church", detail: "Since 2016" }
+    { icon: <Church size={24} />, fact: "Parish Church", detail: "Since 2016" },
+    { icon: <Users size={24} />, fact: "4 na Pari", detail: "Mula 2012 - Present" }
   ];
 
   return (
@@ -142,6 +161,7 @@ const Promotions = () => {
         <div className="priests-section">
           <div className="section-subheader">
             <h2>Ang Ating Mga Pari</h2>
+            <p className="subtitle">Mga nagsilbi at kasalukuyang naglilingkod sa parokya</p>
             <div className="subheader-underline"></div>
           </div>
           
@@ -154,10 +174,17 @@ const Promotions = () => {
                       src={priest.image} 
                       alt={priest.name}
                       className="priest-image"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
                     />
+                    <div className="image-fallback-priest">
+                      <Users size={40} />
+                    </div>
                     <div className="image-overlay"></div>
                   </div>
-                  <div className priest-tenure>{priest.tenure}</div>
+                  <div className="priest-tenure">{priest.tenure}</div>
                 </div>
                 
                 <div className="priest-info">
@@ -175,7 +202,7 @@ const Promotions = () => {
           <div className="quote-mark">"</div>
           <p className="quote-text">
             Ang kasaysayan ng ating parokya ay patunay ng patuloy na pagmamahal at pananampalataya 
-            ng pamayanan sa Diyos.
+            ng pamayanan sa Diyos, at ng dedikasyon ng mga paring naglingkod dito.
           </p>
           <div className="quote-author">- San Jose Manggagawa Parish</div>
         </div>

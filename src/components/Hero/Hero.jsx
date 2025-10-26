@@ -52,6 +52,11 @@ const Hero = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide]);
 
+  // Handle download app click
+  const handleDownloadApp = () => {
+    window.open('https://expo.dev/accounts/carlovallena/projects/sjmp-parish-app/builds/6a9d892b-c1ca-4d66-a5ac-7ef4c2692082', '_blank');
+  };
+
   return (
     <main className="hero-section" id="home">
       <div 
@@ -95,9 +100,9 @@ const Hero = ({
               <a href="#church-info" className="cta-button primary">
                 <Calendar size={18} /> MASS SCHEDULES
               </a>
-              <a href="#download" className="cta-button secondary">
+              <button onClick={handleDownloadApp} className="cta-button secondary">
                 <Download size={18} /> DOWNLOAD APP
-              </a>
+              </button>
             </div>
           </div>
         </div>

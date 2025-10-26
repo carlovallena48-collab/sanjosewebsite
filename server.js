@@ -61,6 +61,116 @@ app.get('/api/announcements', async (req, res) => {
   }
 });
 
+// ✅ ADD EVENTS ROUTE HERE
+app.get('/api/events', async (req, res) => {
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.json({
+        success: true,
+        data: [],
+        message: 'MongoDB not connected - using mock data',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    const events = await mongoose.connection.db.collection('websiteevents')
+      .find({})
+      .sort({ date: 1 }) // Sort by date ascending
+      .toArray();
+    
+    // Convert MongoDB ObjectId to string and format dates
+    const formattedEvents = events.map(event => ({
+      _id: event._id.toString(),
+      title: event.title,
+      description: event.description,
+      date: event.date,
+      time: event.time,
+      location: event.location,
+      category: event.category,
+      contactPerson: event.contactPerson,
+      isFeatured: event.isFeatured || false,
+      createdAt: event.createdAt
+    }));
+    
+    res.json({
+      success: true,
+      data: formattedEvents,
+      count: events.length,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Events API Error:', error);
+    res.status(500).json({
+      success: false,
+      data: [],
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// ✅ ADD SINGLE EVENT ROUTE (for future use)
+app.get('/api/events/:id', async (req, res) => {
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        success: false,
+        message: 'Database not available',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    const { id } = req.params;
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid event ID',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    const event = await mongoose.connection.db.collection('websiteevents')
+      .findOne({ _id: new mongoose.Types.ObjectId(id) });
+    
+    if (!event) {
+      return res.status(404).json({
+        success: false,
+        message: 'Event not found',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    const formattedEvent = {
+      _id: event._id.toString(),
+      title: event.title,
+      description: event.description,
+      date: event.date,
+      time: event.time,
+      location: event.location,
+      category: event.category,
+      contactPerson: event.contactPerson,
+      isFeatured: event.isFeatured || false,
+      createdAt: event.createdAt
+    };
+    
+    res.json({
+      success: true,
+      data: formattedEvent,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Single Event API Error:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
@@ -74,5 +184,6 @@ const connectDB = async () => {
 
 app.listen(PORT, async () => {
   console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📅 Events API available at: http://localhost:${PORT}/api/events`);
   await connectDB();
 });
